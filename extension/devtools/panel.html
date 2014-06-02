@@ -1,0 +1,41 @@
+<html lang="en" ng-app="app">
+	<head>
+		<link rel="stylesheet" href="css/panel.css">
+		<link rel="stylesheet" href="../vendor/fontawesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../vendor/rickshaw/rickshaw.min.css">
+	</head>
+
+	<body ng-controller="AppCtrl">
+		<!-- OVERLAYS -->
+		<div class="overlay" ng-show="ui.fileVisible || ui.settingsVisible" ng-click="ui.settingsClose();ui.fileClose();"></div>
+
+		<!-- SETTINGS -->
+		<div ng-include src="'templates/settings.html'" ng-show="ui.settingsVisible" ng-model="ui.settingsVisible" class="panel small settings"></div>
+
+		<!-- MAIN WINDOW -->
+		<div ng-include src="'templates/main.html'" class="panel main"></div>
+
+
+		<!--div class="middle loader" ng-show="kvm.progress>0">
+		<i class="fa fa-refresh fa-3x fa-spin"></i>
+		<p>
+		Loading data...
+		</p>
+		</div-->
+
+		<!-- SCRIPTS -->
+		<script src="../vendor/angular/angular.js"></script>
+		<script src="../vendor/angular/angular-sanitize.js"></script>
+		<script src="../vendor/d3/d3.min.js"></script>
+		<script src="../vendor/rickshaw/rickshaw.min.js"></script>
+		<script src="../vendor/angular-rickshaw/rickshaw.min.js"></script>
+		<script src="../common/const.js"></script>
+		<script src="../common/mockup.js"></script>
+
+		<script src="js/modules/ngStorage.js"></script>
+
+		<script src="js/panel.js"></script>
+
+		<script src="js/services/tab.js"></script>
+	</body>
+</html>

@@ -1,0 +1,143 @@
+/**
+ * 	Common CSS classes
+ */
+html, body {
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+	font-family:'Lucida Grande',sans-serif;
+	color:#222;
+	font-size:12px;
+	overflow:hidden;
+	background-color:#fff;
+}
+i {
+	color:#555;
+	font-size: 14px;
+}
+.overlay {
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	position:absolute;
+	background-color:#000;
+	z-index:99;
+	opacity:0.2;
+	cursor:hand;
+}
+.middle {
+	width:100%;
+	vertical-align:middle;
+	text-align:center;
+	top:45%;
+	position:absolute;
+}
+.middle .loader, .loader i {
+	z-index:9999;
+	color:#aaa;
+}
+.empty {
+	color:#aaa;
+}
+select {
+	/*dont use display:none -> it will not work*/
+	width:0;
+	height:0;
+}
+input {
+	/*font-family: Menlo, monospace;*/
+	border:1px solid #ddd;
+	color:#222;
+	width:200px;
+	height:22px;
+	line-height:22px;
+	font-size:12px;
+	background-color:transparent;
+}
+input:hover {
+	border:1px solid #aaa;
+}
+input:focus {
+	outline:none;
+}
+hr {
+	border-top:0;
+	border-left:0;
+	border-right:0;
+	border-bottom:1px solid #ddd;
+}
+.clickable:hover i {
+	color:rgb(29,138,210) !important;
+	cursor:hand;
+}
+.clickable:hover {
+	color:rgb(29,138,210) !important;
+	cursor:hand;
+}
+.panel {
+	position:absolute;
+	width:100%;
+	height:100%;
+	display:flex;
+	flex-direction:column;
+	flex-wrap:nowrap;
+}
+.panel.small {
+	position:absolute;
+	width:40%;
+	height:100%;
+	display:flex;
+	flex-direction:column;
+	flex-wrap:nowrap;
+}
+header {
+	background-color:#fff;
+	padding:0;
+	flex-shrink:0;
+	border-bottom:1px solid #ddd;
+}
+.content {
+	flex-grow:1;
+	overflow:auto;
+	background-color:#fff;
+}
+footer {
+	background:#E7E7E7;
+	border-top:1px solid #999;
+	padding:0;
+	flex-shrink:0;
+	border-top:1px solid #ddd;
+}
+.toolbar {
+	height:25px;
+	line-height:25px;
+	font-size:12px;
+	margin-left:5px;
+	margin-right:5px;
+	color:#222;
+	width:100%;
+	overflow:hidden;
+}
+.toolbar .pullLeft {
+	left:5px;
+	position:absolute;
+}
+.toolbar .pullRight {
+	right:5px;
+	height:25px;
+	position:absolute;
+}
+header .toolbar .pullRight i {
+	font-size:16px;
+}
+header .toolbar .pullLeft i {
+	font-size:16px;
+}
+/**
+ * Main panel
+ */
+.panel.main .content {
+	overflow-x:hidden;
+}

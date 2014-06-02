@@ -1,0 +1,26 @@
+{
+	"name": "DOM Observer",
+	"description": "DOM Observer",
+	"version": "0.0.1.0",
+	"manifest_version": 2,
+	"permissions": ["tabs", "storage", "webRequest", "webRequestBlocking", "<all_urls>"],
+	"background": {
+		"scripts": ["common/const.js", "background/background.js"]
+	},
+	"content_scripts": [
+		{
+			"matches": ["*://127.0.0.1:*/*"],
+			"css": [],
+			"js": ["page/page.js"],
+			"run_at": "document_start"
+		}
+	],
+	"content_security_policy": "default-src 'self' chrome-extension-resource: ; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval'; connect-src *; img-src *; frame-src *;",
+	"devtools_page": "devtools/devtools.html",
+	"homepage_url": "http://lab.ejci.net",
+	"icons": {
+		"16": "16.png",
+		"48": "48.png",
+		"128": "128.png"
+	}
+}

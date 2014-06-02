@@ -1,0 +1,36 @@
+<header>
+	<div class="toolbar">
+
+		<span ng-click="ui.settingsOpen()" title="Record DOM mutation" class=""><i class="fa fa-circle fa-fw clickable"></i></span></span>
+		<span ng-click="ui.settingsOpen()" title="Refresh actual tab" class=""><i class="fa fa-refresh fa-fw clickable"></i></span></span>
+		<span ng-click="ui.settingsOpen()" title="Clear" class=""><i class="fa fa-ban fa-fw clickable"></i></span></span>
+		<i class="fa fa-filter fa-fw"></i>
+		<input value="sdas">
+		<span ng-click="ui.settingsOpen()" title="Show loading charts" class="pullRight"><i class="fa fa-bar-chart-o fa-fw clickable"></i>&nbsp;</span></span>
+
+	</div>
+</header>
+
+<div class="content">
+	<div>
+		{{debug}}
+	</div>
+	<div>
+		{{tab}}
+	</div>
+	<!-- -->
+	<table>
+		<tr class="row hoverable" ng-repeat="grep in git.grep.content | filter:searchResults">
+			<td class="type {{grep.type}}" ng-switch on="deviceType(grep.path)"><i ng-switch-when="mobile" title="{{grep.path}}" class="fa fa-mobile fa-fw"></i><i ng-switch-when="tablet" title="{{grep.path}}" class="fa fa-tablet fa-fw"></i><i ng-switch-default title="{{grep.path}}" class="fa fa-desktop fa-fw"></i></td>
+			<td class="file {{grep.type}}" title="{{grep.path}}" ng-bind-html="prettyPath(grep.path,grep.name)"></td>
+			<td class="line code">{{grep.line}}</td>
+			<td class="code cursor-hand" ng-click="ui.fileOpen(grep.path, option.pattern, grep.name)"><div ng-bind-html="prettyContent(grep.content,option.pattern)"></div></td>
+		</tr>
+	</table>
+</div>
+
+<footer>
+	<div class="toolbar">
+		<span ng-click="ui.settingsOpen()" title="Settings" class="clickable"><i class="fa fa-gear fa-fw"></i></span></span>&nbsp;
+	</div>
+</footer>
