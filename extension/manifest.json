@@ -9,7 +9,7 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["*://127.0.0.1:*/*"],
+			"matches": ["<all_urls>"],
 			"css": [],
 			"js": ["page/page.js"],
 			"run_at": "document_start"
@@ -21,6 +21,7 @@
 	"icons": {
 		"16": "16.png",
 		"48": "48.png",
-		"128": "128.png"
+		"128": "128.png",
+		"256": "256.png"
 	}
 }

@@ -1,36 +1,38 @@
 <header>
 	<div class="toolbar">
 
-		<span ng-click="ui.settingsOpen()" title="Record DOM mutation" class=""><i class="fa fa-circle fa-fw clickable"></i></span></span>
-		<span ng-click="ui.settingsOpen()" title="Refresh actual tab" class=""><i class="fa fa-refresh fa-fw clickable"></i></span></span>
-		<span ng-click="ui.settingsOpen()" title="Clear" class=""><i class="fa fa-ban fa-fw clickable"></i></span></span>
-		<i class="fa fa-filter fa-fw"></i>
-		<input value="sdas">
-		<span ng-click="ui.settingsOpen()" title="Show loading charts" class="pullRight"><i class="fa fa-bar-chart-o fa-fw clickable"></i>&nbsp;</span></span>
+		<span ng-hide="tab.recording" ng-click="ui.record('start')" title="Record DOM mutation" class=""><i class="fa fa-circle fa-fw clickable"></i></span></span>
+		<span ng-show="tab.recording" ng-click="ui.record('stop')" title="Stop recording" class="recording"><i class="fa fa-circle fa-fw clickable"></i></span></span>
+		<span ng-hide="tab.reloading" ng-click="ui.reload()" title="Refresh actual tab" class=""><i class="fa fa-refresh fa-fw clickable" ng-class=""></i></span></span>
+		<span ng-show="tab.reloading" ng-click="" title="Refresh actual tab" class="working"><i class="fa fa-refresh fa-fw" ng-class=""></i></span></span>
+
+		<span ng-click="ui.clear()" title="Clear" class=""><i class="fa fa-ban fa-fw clickable"></i></span></span>
+
+		<i ng-show="tab.mutations.length" class="fa fa-filter fa-fw"></i>
+		<input ng-show="tab.mutations.length" value="" ng-model="searchFilter" placeholder="Search in results">
+		<!--
+		<span ng-click="ui.chartsToggle()" title="Show loading charts" class="pullRight"><i class="fa fa-bar-chart-o fa-fw clickable"></i>&nbsp;</span></span>
+		-->
+		<span ng-click="ui.settingsOpen()" title="Settings" class="pullRight clickable"><i class="fa fa-gear fa-fw"></i>&nbsp;</span>&nbsp;</span>
 
 	</div>
 </header>
 
 <div class="content">
-	<div>
-		{{debug}}
-	</div>
-	<div>
-		{{tab}}
-	</div>
-	<!-- -->
 	<table>
-		<tr class="row hoverable" ng-repeat="grep in git.grep.content | filter:searchResults">
-			<td class="type {{grep.type}}" ng-switch on="deviceType(grep.path)"><i ng-switch-when="mobile" title="{{grep.path}}" class="fa fa-mobile fa-fw"></i><i ng-switch-when="tablet" title="{{grep.path}}" class="fa fa-tablet fa-fw"></i><i ng-switch-default title="{{grep.path}}" class="fa fa-desktop fa-fw"></i></td>
-			<td class="file {{grep.type}}" title="{{grep.path}}" ng-bind-html="prettyPath(grep.path,grep.name)"></td>
-			<td class="line code">{{grep.line}}</td>
-			<td class="code cursor-hand" ng-click="ui.fileOpen(grep.path, option.pattern, grep.name)"><div ng-bind-html="prettyContent(grep.content,option.pattern)"></div></td>
+		<tr class="row hoverable" ng-repeat="mutation in tab.mutations | filter:searchFilter">
+			<td class="time" ng-class="{'beforeLoad' : !mutation.eventLoad}" ><span ng-bind="utils.formatTime(mutation)"></span></td>
+			<td class="type" ng-class="{'beforeLoad' : !mutation.eventLoad}" ><span class="badge {{mutation.type}}" ng-bind="utils.typeDesc(mutation)"></span></td>
+			<td class="node" ng-class="{'beforeLoad' : !mutation.eventLoad}" ><span ng-bind="mutation.target.nodeName"></span></td>
+			<td ng-class="{'beforeLoad' : !mutation.eventLoad}" >
+				<span ng-if="!mutation.visible" class="cursor-hand" ng-click="mutation.visible=!mutation.visible"><i class="fa fa-plus-square-o fa-fw clickable"></i></span>
+				<span ng-if="mutation.visible" class="cursor-hand" ng-click="mutation.visible=!mutation.visible"><i class="fa fa-minus-square-o fa-fw clickable"></i></span>
+				<span ng-bind-html="utils.description(mutation)"></span>
+				<span ng-if="mutation.alert" title="This change can cause flickering on page..."><i class="fa fa-exclamation-circle alert" ></i></span> 
+				<mutation data="mutation">
+				
+			</td>
 		</tr>
 	</table>
 </div>
 
-<footer>
-	<div class="toolbar">
-		<span ng-click="ui.settingsOpen()" title="Settings" class="clickable"><i class="fa fa-gear fa-fw"></i></span></span>&nbsp;
-	</div>
-</footer>

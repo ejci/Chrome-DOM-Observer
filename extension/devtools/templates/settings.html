@@ -6,36 +6,18 @@
 </header>
 
 <div class="content">
-	<h4>App colors</h4>
-	<div ng-repeat="kvm in settings.kvms">
-		<i class="fa fa-square fa-fw" style="color: {{kvm.color}} !important;"></i>
-		<input ng-model="kvm.color" value="{{kvm.color}}"/>
-		<label>{{settings.user}}{{kvm.description}}</label>
-	</div>
-	<p>
-		<small>Change of this colors will affect favicon color after page refresh.</small>
-	</p>
+	<h4>Mutations</h4>
+	<input name="settings.preserve" type="checkbox" ng-model="settings.preserve" ng-change="">
+	<label>Preserve recorded mutations after page refresh</label>
+	<br/>
+	<input name="settings.autostop" type="checkbox" ng-model="settings.autostop" ng-change="">
+	<label>Automaticly stop recording after tab is completely loaded</label>
+	<br/>
+	<input name="settings.childChanges" type="checkbox" ng-model="settings.childChanges" ng-change="">
+	<label>Watch also child changes</label>
+	<small>( For pages with large DOM it can cause freezing of devtools :( )</small>
 	<hr/>
-	<h4>Enviroment colors</h4>
-	<div ng-repeat="enviroment in settings.enviroments">
-		<i class="fa fa-circle fa-fw" style="color: {{enviroment.color}} !important;"></i>
-		<input ng-model="enviroment.color" value="{{enviroment.color}}"/>
-		<label>{{enviroment.name}}</label>
-	</div>
-	<p>
-		<small>Change of this colors will affect favicon color after page refresh.</small>
-	</p>
-	<hr/>
-	<h4>API settings</h4>
-	<div>
-		<i class="fa fa-flash fa-fw"></i>
-		<input ng-model="settings.path" value="{{settings.path}}"/>
-		<label>KVM API path</label>
-	</div>
-	<div>
-		<i class="fa fa-folder-o fa-fw"></i>
-		<input ng-model="settings.gitPath" value="{{settings.gitPath}}"/>
-		<label>Affiliate path</label>
-	</div>
-	<p></p>
+	<h4>Console</h4>
+	<input name="settings.console" type="checkbox" ng-model="settings.console" ng-change="">
+	<label>Log mutations to console</label>
 </div>

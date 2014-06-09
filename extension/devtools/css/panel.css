@@ -14,7 +14,7 @@ html, body {
 }
 i {
 	color:#555;
-	font-size: 14px;
+	font-size:14px;
 }
 .overlay {
 	width:100%;
@@ -48,13 +48,20 @@ select {
 }
 input {
 	/*font-family: Menlo, monospace;*/
-	border:1px solid #ddd;
 	color:#222;
-	width:200px;
 	height:22px;
 	line-height:22px;
 	font-size:12px;
 	background-color:transparent;
+}
+label {
+	line-height:22px;
+	font-size:12px;
+}
+input:not([type="checkbox"]) {
+	/*font-family: Menlo, monospace;*/
+	border:1px solid #ddd;
+	width:200px;
 }
 input:hover {
 	border:1px solid #aaa;
@@ -68,11 +75,72 @@ hr {
 	border-right:0;
 	border-bottom:1px solid #ddd;
 }
-.clickable:hover i {
+table {
+	width:100%;
+	border:0;
+	padding:0;
+	border-collapse:collapse;
+	border-spacing:0;
+}
+table th, td {
+	padding:0;
+	vertical-align:top;
+}
+table th {
+	padding-left:5px;
+	padding-right:5px;
+	text-align:center !important;
+	font-family:'Lucida Grande' !important;
+	height:22px;
+	border-bottom:1px solid #ddd;
+	border-right:1px solid #ddd;
+	font-weight:normal;
+}
+tr.row:nth-child(even) {
+	background:#f1f1f1
+}
+tr.row:nth-child(odd) {
+	background:#fff
+}
+tr.hoverable:hover {
+	background-color:#e6edf6;
+}
+td.beforeLoad {
+	background-color:rgba(255, 225, 225, 0.3) !important;
+}
+tr.hoverable:hover .line {
 	color:rgb(29,138,210) !important;
+}
+table tr {
+	border:0;
+	width:100%;
+	height:20px;
+	line-height:20px;
+	font-size:11px;
+}
+table tr td {
+	border-right:1px solid #ddd;
+	padding-left:5px;
+	padding-right:5px;
+	height:22px;
+}
+table tr.row td.cursor-hand {
 	cursor:hand;
 }
-.clickable:hover {
+.clickable:hover i, .clickable:hover {
+	color:rgb(29,138,210) !important;
+	text-shadow:none;
+	cursor:hand;
+}
+.alert{
+	color:rgb(183,0,9); !important;
+}
+.recording i {
+	color:rgb(200,0,0) !important;
+	text-shadow:0px 0px 5px rgb(200,0,0);
+	cursor:hand;
+}
+.working i {
 	color:rgb(29,138,210) !important;
 	cursor:hand;
 }
@@ -140,4 +208,75 @@ header .toolbar .pullLeft i {
  */
 .panel.main .content {
 	overflow-x:hidden;
+	overflow-y:auto;
+}
+table .time {
+	width:85px;
+	text-align:right;
+}
+table .type {
+	width:50px;
+}
+table .node {
+	width:70px;
+	font-family:Menlo,monospace;
+	font-size:10px;
+}
+table .dump {
+	margin-left:8px;
+	margin-bottom:5px;
+	padding-left:10px;
+	font-family:Menlo,monospace;
+	border-left:1px dotted #999;
+	font-size:10px;
+}
+table .dump .key {
+	color:rgb(117,0,128);
+}
+table .dump .value {
+	color:rgb(183,0,9);
+}
+table .dump .object {
+	color:#777;
+	cursor:hand;
+}
+table .dump .object:hover {
+	color:#555;
+	text-decoration:underline;
+}
+.badge {
+	padding-left:6px;
+	padding-right:6px;
+	margin-top:2px;
+	display:inline-block;
+	height:16px;
+	line-height:16px;
+	border-radius:20px;
+	font-size:10px;
+	font-family:Menlo,monospace;
+	color:#fff;
+}
+.badge.attributes {
+	background-color:rgba(255, 127, 0, 0.4);
+}
+.badge.characterData {
+	background-color:rgba(255, 0, 0, 0.4);
+}
+.badge.childList {
+	background-color:rgba(0, 0, 127, 0.4);
+}
+/**
+ * 	Settings content
+ */
+.panel.settings {
+	z-index:100;
+}
+.panel.settings .content {
+	padding:5px;
+}
+.panel.settings input {
+	height:20px !important;
+	line-height:20px !important;
+	margin-top:2px;
+	margin-bottom:2px;
 }

@@ -1,0 +1,7 @@
+<span>
+	<ng-init="elementsVisible=false"/>
+	<span class="object" ng-click="elementsVisible=!elementsVisible">[Array]</span>
+	<div class="dump" ng-if="elementsVisible" ng-repeat="element in elements">
+		<span class="key">{{$index}}</span> :
+		<element data="element" />
+	</div> </span>
