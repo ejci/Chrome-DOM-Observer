@@ -15,7 +15,7 @@ Extension is recording all changes off DOM with MutationObserver on whole docume
 
 ####Overview
 ![Image](https://github.com/ejci/Chrome-DOM-Observer/raw/master/resources/screenshot_1.png "Logo Title Text 1")	
-####Setting
+####Settings
 ![Image](https://github.com/ejci/Chrome-DOM-Observer/raw/master/resources/screenshot_2.png)	
 ####Possible error detection
 ![Image](https://github.com/ejci/Chrome-DOM-Observer/raw/master/resources/screenshot_3.png)	
