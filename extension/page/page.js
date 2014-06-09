@@ -4,6 +4,7 @@
 	 * Transform node object to "transferable" object
 	 */
 	var transformNode = function(node) {
+
 		var copy = null;
 		if (node) {
 			copy = {};
@@ -21,6 +22,13 @@
 				}
 				return attrs;
 			})(node.attributes);
+			copy.path = (function(el) {
+				var path = [];
+				do {
+					path.unshift(el.nodeName + (el.id ? ' id="' + el.id + '"' : (el.className ? ' class="' + el.className + '"' : '')));
+				} while ((el.nodeName.toLowerCase() != 'html') && (el = el.parentNode));
+				return (path.join(" > "));
+			})(node);
 			copy.children = (node.children) ? node.children.length : 0;
 			copy.hidden = node.hidden;
 			copy.localName = node.localName;
@@ -111,7 +119,7 @@
 		});
 		window.addEventListener('DOMContentLoaded', function() {
 			//maybe I will need this... or not :)
-			eventLoad=false;
+			eventLoad = false;
 		});
 		window.addEventListener('load', function() {
 			chrome.runtime.sendMessage({
