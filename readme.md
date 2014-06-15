@@ -30,7 +30,8 @@ Extension is recording all changes off DOM with MutationObserver on whole docume
 
 
 ##Todo
-* fix performance issues
+* fix performance issues (in progress)
 * refactor code
-* ng-repeat fix 
+* screenshots (load, DOMContentLoade,...)
+* inspect elements
 * charts
