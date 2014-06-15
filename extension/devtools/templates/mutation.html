@@ -1,35 +1,42 @@
-<span ng-if="mutation.visible">
-	<div class="dump">
-		<div ng-if="mutation.attributeName">
-			<span class="key">attributeName</span> : <span class="value" ng-bind="mutation.attributeName"></span>
-		</div>
-		<div ng-if="mutation.attributeNameSpace">
-			<span class="key">attributeNameSpace</span> : <span class="value" ng-bind="mutation.attributeNameSpace"></span>
-		</div>
-		<div ng-if="mutation.oldValue">
-			<span class="key">oldValue</span> : <span class="value" ng-bind="mutation.oldValue"></span>
-		</div>
-		<div ng-if="mutation.type">
-			<span class="key">type</span> : <span class="value" ng-bind="mutation.type"></span>
-		</div>
-		<div ng-if="mutation.target">
-			<span class="key">target</span> :
-			<element data="mutation.target"/>
-		</div>
-		<div ng-if="mutation.previousSibling"  >
-			<span class="key">previousSibling</span> :
-			<element data="mutation.previousSibling"/>
-		</div>
-		<div ng-if="mutation.nextSibling">
-			<span class="key">nextSibling</span> :
-			<element data="mutation.nextSibling"/>
-		</div>
-		<div ng-if="mutation.addedNodes">
-			<span class="key">addedNodes</span> :
-			<elements data="mutation.addedNodes"/>
-		</div>
-		<div ng-if="mutation.removedNodes">
-			<span class="key">removedNodes</span> :
-			<elements data="mutation.removedNodes"/>
-		</div>
-	</div> </span>
+
+
+
+<span ng-if="!mutation.__meta__.visible" class="cursor-hand" ng-click="mutation.__meta__.visible=!mutation.__meta__.visible"> <i class="fa fa-plus-square-o fa-fw clickable"></i> </span>
+<span ng-if="mutation.__meta__.visible" class="cursor-hand" ng-click="mutation.__meta__.visible=!mutation.__meta__.visible"> <i class="fa fa-minus-square-o fa-fw clickable"></i> </span>
+<span ng-bind-html="mutation.__meta__.description"></span>
+<span ng-if="mutation.alert" title="This change can cause flickering on page..."> <i class="fa fa-exclamation-circle alert" ></i> </span>
+
+<div ng-if="mutation.__meta__.visible" class="dump">
+	<div ng-if="mutation.attributeName">
+		<span class="key">attributeName</span> : <span class="value" ng-bind="mutation.attributeName"></span>
+	</div>
+	<div ng-if="mutation.attributeNameSpace">
+		<span class="key">attributeNameSpace</span> : <span class="value" ng-bind="mutation.attributeNameSpace"></span>
+	</div>
+	<div ng-if="mutation.oldValue">
+		<span class="key">oldValue</span> : <span class="value" ng-bind="mutation.oldValue"></span>
+	</div>
+	<div ng-if="mutation.type">
+		<span class="key">type</span> : <span class="value" ng-bind="mutation.type"></span>
+	</div>
+	<div ng-if="mutation.target">
+		<span class="key">target</span> :
+		<element data="mutation.target"/>
+	</div>
+	<div ng-if="mutation.previousSibling"  >
+		<span class="key">previousSibling</span> :
+		<element data="mutation.previousSibling"/>
+	</div>
+	<div ng-if="mutation.nextSibling">
+		<span class="key">nextSibling</span> :
+		<element data="mutation.nextSibling"/>
+	</div>
+	<div ng-if="mutation.addedNodes">
+		<span class="key">addedNodes</span> :
+		<elements data="mutation.addedNodes"/>
+	</div>
+	<div ng-if="mutation.removedNodes">
+		<span class="key">removedNodes</span> :
+		<elements data="mutation.removedNodes"/>
+	</div>
+</div>

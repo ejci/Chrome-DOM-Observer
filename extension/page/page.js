@@ -1,10 +1,26 @@
 (function() {
-	var useConsole = false, childList = false, eventLoad = false, observer;
+	var useConsole = false, childList = false, screenshots = false, observer;
+	var nodeExp = new RegExp('target|previousSibling|nextSibling', 'i');
+	var nodeListExp = new RegExp('addedNodes|removedNodes', 'i');
+	var timeStart = (new Date()).getTime();
+	(function() {
+		var time = new Date().getTime();
+		chrome.runtime.sendMessage({
+			destination : 'devtools',
+			event : {
+				type : 'event',
+				__meta__ : {
+					timestamp : timeStart,
+					time : 0
+				},
+				name : 'reload'
+			}
+		});
+	})();
 	/**
 	 * Transform node object to "transferable" object
 	 */
 	var transformNode = function(node) {
-
 		var copy = null;
 		if (node) {
 			copy = {};
@@ -23,11 +39,23 @@
 				return attrs;
 			})(node.attributes);
 			copy.path = (function(el) {
-				var path = [];
-				do {
-					path.unshift(el.nodeName + (el.id ? ' id="' + el.id + '"' : (el.className ? ' class="' + el.className + '"' : '')));
-				} while ((el.nodeName.toLowerCase() != 'html') && (el = el.parentNode));
-				return (path.join(" > "));
+				var names = [];
+				while (el.parentNode) {
+					if (el.id) {
+						names.unshift('#' + el.id);
+						break;
+					} else {
+						if (el == el.ownerDocument.documentElement)
+							names.unshift(el.tagName);
+						else {
+							for (var c = 1, e = el; e.previousElementSibling; e = e.previousElementSibling, c++);
+							names.unshift(el.tagName + ":nth-child(" + c + ")");
+						}
+						el = el.parentNode;
+					}
+				}
+				return names.join(" > ");
+
 			})(node);
 			copy.children = (node.children) ? node.children.length : 0;
 			copy.hidden = node.hidden;
@@ -45,8 +73,6 @@
 	 */
 	var transformMutation = function(obj) {
 		var copy = {};
-		var nodeExp = new RegExp('target|previousSibling|nextSibling', 'i');
-		var nodeListExp = new RegExp('addedNodes|removedNodes', 'i');
 		for (key in obj) {
 			if (nodeExp.test(key)) {
 				copy[key] = transformNode(obj[key]);
@@ -63,36 +89,39 @@
 		return copy;
 	};
 	try {
-		//send init message to background.js. If needed background.js will fire record-start event
 		chrome.runtime.sendMessage({
 			destination : 'background',
 			action : 'init'
 		});
 		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-			//console.log('request.action', request);
 			/**
 			 * Start recording
 			 */
 			if (request.action === 'record-start') {
 				useConsole = request.console;
 				childList = request.childList;
+				screenshots = request.screenshots;
+				console.log('record-start', observer);
 				if (!observer) {
-					observer = new MutationObserver(function(mutations) {
-						var time = new Date().getTime();
-						for (key in mutations) {
-							if (useConsole) {
-								console.log(mutations[key]);
-							}
 
+					observer = new MutationObserver(function(mutations) {
+						var time = (new Date()).getTime();
+						for (key in mutations) {
+							//if (useConsole) {
+							console.log(mutations[key]);
+							//}
 							var mutation = transformMutation(mutations[key]);
-							mutation.time = time;
-							mutation.eventLoad = eventLoad;
 							chrome.runtime.sendMessage({
 								destination : 'devtools',
-								action : 'mutation',
-								data : mutation
+								event : {
+									type : 'mutation',
+									__meta__ : {
+										timestamp : time,
+										time : (time - timeStart)
+									},
+									mutation : mutation
+								}
 							});
-
 						}
 					});
 					observer.observe(document, {
@@ -104,6 +133,7 @@
 						characterDataOldValue : true,
 						attributeFilter : true
 					});
+					console.log(observer, document);
 				}
 
 			}
@@ -111,6 +141,7 @@
 			 * Stop recording
 			 */
 			if (request.action === 'record-stop') {
+				console.log('record-stop');
 				if (observer) {
 					observer.disconnect();
 					observer = null;
@@ -118,16 +149,33 @@
 			}
 		});
 		window.addEventListener('DOMContentLoaded', function() {
-			//maybe I will need this... or not :)
-			eventLoad = false;
-		});
-		window.addEventListener('load', function() {
+			var time = (new Date()).getTime();
 			chrome.runtime.sendMessage({
 				destination : 'devtools',
-				action : 'performance',
-				data : window.performance
+				event : {
+					type : 'event',
+					__meta__ : {
+						timestamp : time,
+						time : (time - timeStart)
+					},
+					name : 'DOMContentLoaded'
+				}
 			});
-			eventLoad = true;
+		});
+
+		window.addEventListener('load', function() {
+			var time = (new Date()).getTime();
+			chrome.runtime.sendMessage({
+				destination : 'devtools',
+				event : {
+					type : 'event',
+					__meta__ : {
+						timestamp : time,
+						time : (time - timeStart)
+					},
+					name : 'load'
+				}
+			});
 		});
 
 	} catch(e) {

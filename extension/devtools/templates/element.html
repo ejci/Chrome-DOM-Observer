@@ -1,43 +1,42 @@
-<span>
-	<ng-init="elementVisible=false"/>
-	<span class="object" ng-click="elementVisible=!elementVisible">[Object]</span>
-	<div class="dump" ng-if="elementVisible">
-		<div>
-			<span class="key">attributes</span> :
-			<div class="dump">
-				<div ng-repeat="attribute in element.attributes">
-					<span class="key" ng-bind="attribute.nodeName"></span> :<span class="value" ng-bind="attribute.nodeValue"></span>
-				</div>
+<ng-init="elementVisible=false"/>
+<span class="object" ng-click="elementVisible=!elementVisible">[Object]</span>
+<div class="dump" ng-if="elementVisible">
+	<div>
+		<span class="key">attributes</span> :
+		<div class="dump">
+			<div ng-repeat="attribute in element.attributes">
+				<span class="key" ng-bind="attribute.nodeName"></span> :<span class="value" ng-bind="attribute.nodeValue"></span>
 			</div>
 		</div>
-		<div>
-			<span class="key">path</span> : <span class="value" ng-bind="element.path"></span>
-		</div>
-		<div>
-			<span class="key">children</span> : <span class="value" ng-bind="element.children"></span>
-		</div>
-		<div>
-			<span class="key">clientHeight</span> : <span class="value" ng-bind="element.clientHeight"></span>
-		</div>
-		<div>
-			<span class="key">clientLeft</span> : <span class="value" ng-bind="element.clientLeft"></span>
-		</div>
-		<div>
-			<span class="key">clientTop</span> : <span class="value" ng-bind="element.clientTop"></span>
-		</div>
-		<div>
-			<span class="key">clientWidth</span> : <span class="value" ng-bind="element.clientWidth"></span>
-		</div>
-		<div>
-			<span class="key">hidden</span> : <span class="value" ng-bind="element.hidden"></span>
-		</div>
-		<div>
-			<span class="key">localName</span> : <span class="value" ng-bind="element.localName"></span>
-		</div>
-		<div>
-			<span class="key">nodeName</span> : <span class="value" ng-bind="element.nodeName"></span>
-		</div>
-		<div>
-			<span class="key">tagName</span> : <span class="value" ng-bind="element.tagName"></span>
-		</div>
-	</div> </span>
+	</div>
+	<div>
+		<span class="key">path</span> : <span class="value" ng-bind="element.path"></span>
+	</div>
+	<div>
+		<span class="key">children</span> : <span class="value" ng-bind="element.children"></span>
+	</div>
+	<div>
+		<span class="key">clientHeight</span> : <span class="value" ng-bind="element.clientHeight"></span>
+	</div>
+	<div>
+		<span class="key">clientLeft</span> : <span class="value" ng-bind="element.clientLeft"></span>
+	</div>
+	<div>
+		<span class="key">clientTop</span> : <span class="value" ng-bind="element.clientTop"></span>
+	</div>
+	<div>
+		<span class="key">clientWidth</span> : <span class="value" ng-bind="element.clientWidth"></span>
+	</div>
+	<div>
+		<span class="key">hidden</span> : <span class="value" ng-bind="element.hidden"></span>
+	</div>
+	<div>
+		<span class="key">localName</span> : <span class="value" ng-bind="element.localName"></span>
+	</div>
+	<div>
+		<span class="key">nodeName</span> : <span class="value" ng-bind="element.nodeName"></span>
+	</div>
+	<div>
+		<span class="key">tagName</span> : <span class="value" ng-bind="element.tagName"></span>
+	</div>
+</div>

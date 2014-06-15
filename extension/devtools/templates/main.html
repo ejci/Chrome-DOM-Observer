@@ -8,31 +8,41 @@
 
 		<span ng-click="ui.clear()" title="Clear" class=""><i class="fa fa-ban fa-fw clickable"></i></span></span>
 
-		<i ng-show="tab.mutations.length" class="fa fa-filter fa-fw"></i>
-		<input ng-show="tab.mutations.length" value="" ng-model="searchFilter" placeholder="Search in results">
+		<span ng-click="ui.settingsOpen()" title="Settings" class="clickable"><i class="fa fa-gear fa-fw"></i>&nbsp;</span>&nbsp;</span>
+
+		<i ng-show="tab.events.length" class="fa fa-filter fa-fw"></i>
+		<input ng-show="tab.events.length" value="" ng-model="searchFilter" placeholder="Search in results">
 		<!--
 		<span ng-click="ui.chartsToggle()" title="Show loading charts" class="pullRight"><i class="fa fa-bar-chart-o fa-fw clickable"></i>&nbsp;</span></span>
 		-->
-		<span ng-click="ui.settingsOpen()" title="Settings" class="pullRight clickable"><i class="fa fa-gear fa-fw"></i>&nbsp;</span>&nbsp;</span>
 
 	</div>
+	<table ng-show="tab.events.length">
+		<tr class="row header">
+			<th class="time">Time</th>
+			<th class="type">Type</th>
+			<th class="node">Node</th>
+			<th class="change">Change</th>
+		</tr>
+	</table>
 </header>
 
 <div class="content">
-	<table>
-		<tr class="row hoverable" ng-repeat="mutation in tab.mutations | filter:searchFilter">
-			<td class="time" ng-class="{'beforeLoad' : !mutation.eventLoad}" ><span ng-bind="utils.formatTime(mutation)"></span></td>
-			<td class="type" ng-class="{'beforeLoad' : !mutation.eventLoad}" ><span class="badge {{mutation.type}}" ng-bind="utils.typeDesc(mutation)"></span></td>
-			<td class="node" ng-class="{'beforeLoad' : !mutation.eventLoad}" ><span ng-bind="mutation.target.nodeName"></span></td>
-			<td ng-class="{'beforeLoad' : !mutation.eventLoad}" >
-				<span ng-if="!mutation.visible" class="cursor-hand" ng-click="mutation.visible=!mutation.visible"><i class="fa fa-plus-square-o fa-fw clickable"></i></span>
-				<span ng-if="mutation.visible" class="cursor-hand" ng-click="mutation.visible=!mutation.visible"><i class="fa fa-minus-square-o fa-fw clickable"></i></span>
-				<span ng-bind-html="utils.description(mutation)"></span>
-				<span ng-if="mutation.alert" title="This change can cause flickering on page..."><i class="fa fa-exclamation-circle alert" ></i></span> 
-				<mutation data="mutation">
-				
-			</td>
+	<table ng-show="tab.events.length">
+		<tr class="row hoverable {{event.name}}" ng-repeat="event in tab.events" >
+			<td class="time"><span ng-bind="event.__meta__.formattedTime"></span></td>
+			<td ng-if="event.type=='mutation'" class="type"><span class="badge {{event.mutation.type}}" ng-bind="event.mutation.__meta__.typeDesc"></span></td>
+			<td ng-if="event.type=='mutation'" class="node"><span ng-bind="event.mutation.target.nodeName.toLowerCase()"></span></td>
+			<td ng-if="event.type=='mutation'"><mutation data="event.mutation"></td>
+			<td ng-if="event.type=='event'" class="type">&nbsp;</td>
+			<td ng-if="event.type=='event'" class="node">&nbsp;</td>
+			<td ng-if="event.type=='event'"><event data="event"></td>
 		</tr>
 	</table>
+	<!--
+	<code>
+	{{tab}}
+	</code>
+	-->
 </div>
 
