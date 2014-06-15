@@ -81,6 +81,7 @@ table {
 	padding:0;
 	border-collapse:collapse;
 	border-spacing:0;
+	cursor: default;
 }
 table th, td {
 	padding:0;
@@ -92,7 +93,7 @@ table th {
 	text-align:center !important;
 	font-family:'Lucida Grande' !important;
 	height:22px;
-	border-bottom:1px solid #ddd;
+	border-top:1px solid #ddd;
 	border-right:1px solid #ddd;
 	font-weight:normal;
 }
@@ -132,8 +133,8 @@ table tr.row td.cursor-hand {
 	text-shadow:none;
 	cursor:hand;
 }
-.alert{
-	color:rgb(183,0,9); !important;
+.alert {
+	color:rgb(183,0,9);!important;
 }
 .recording i {
 	color:rgb(200,0,0) !important;
@@ -154,7 +155,7 @@ table tr.row td.cursor-hand {
 }
 .panel.small {
 	position:absolute;
-	width:40%;
+	width:60%;
 	height:100%;
 	display:flex;
 	flex-direction:column;
@@ -221,6 +222,15 @@ table .node {
 	width:70px;
 	font-family:Menlo,monospace;
 	font-size:10px;
+}
+table .DOMContentLoaded {
+	color:#ee2222 !important;
+}
+table .reload{
+	color:#996622 !important;
+}
+table .load {
+	color:#229922 !important;
 }
 table .dump {
 	margin-left:8px;

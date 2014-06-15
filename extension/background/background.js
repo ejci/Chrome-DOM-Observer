@@ -12,7 +12,8 @@ chrome.runtime.onConnect.addListener(function(port) {
 		if (message.type === 'reload') {
 			port.postMessage({
 				action : 'reloading',
-				data : true
+				started : true,
+				finished : false
 			});
 			chrome.tabs.reload(message.tabId);
 		}
@@ -25,6 +26,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 			}
 			connections[message.tabId].console = message.console;
 			connections[message.tabId].childList = message.childList;
+			connections[message.tabId].screenshots = message.screenshots;
 			port.postMessage({
 				action : 'recording',
 				data : connections[message.tabId].recording
@@ -32,7 +34,8 @@ chrome.runtime.onConnect.addListener(function(port) {
 			chrome.tabs.sendMessage(message.tabId, {
 				action : 'record-' + message.action,
 				console : connections[message.tabId].console,
-				childList : connections[message.tabId].childList
+				childList : connections[message.tabId].childList,
+				screenshots : connections[message.tabId].screenshots
 			});
 
 		}
@@ -60,7 +63,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, info) {
 		if (info.status == "complete") {
 			connections[tabId].port.postMessage({
 				action : 'reloading',
-				data : false
+				started : false,
+				finished : true
 			});
 		}
 	}
@@ -88,7 +92,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 					chrome.tabs.sendMessage(tabId, {
 						action : 'record-start',
 						console : connections[tabId].console,
-						childList : connections[tabId].childList
+						childList : connections[tabId].childList,
+						screenshots : connections[tabId].screenshots,
 					});
 				}
 			}

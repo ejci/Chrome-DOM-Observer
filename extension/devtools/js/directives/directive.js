@@ -1,13 +1,21 @@
 app.directive('mutation', function() {
 	return {
-		restrict : 'E',
+		restrict : 'AE',
 		scope : {
 			mutation : '=data'
 		},
 		templateUrl : 'templates/mutation.html'
 	};
 });
-
+app.directive('event', function() {
+	return {
+		restrict : 'AE',
+		scope : {
+			event : '=data'
+		},
+		templateUrl : 'templates/event.html'
+	};
+});
 app.directive('element', function() {
 	return {
 		restrict : 'AE',
@@ -25,4 +33,4 @@ app.directive('elements', function() {
 		},
 		templateUrl : 'templates/elements.html'
 	};
-});
+}); 
